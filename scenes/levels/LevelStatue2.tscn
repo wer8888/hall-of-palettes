@@ -1,0 +1,119 @@
+[gd_scene load_steps=18 format=2]
+
+[ext_resource path="res://scenes/tiles/tilemap.tres" type="TileSet" id=1]
+[ext_resource path="res://scenes/creatures/Slime.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/Key.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/Door.tscn" type="PackedScene" id=4]
+[ext_resource path="res://materials/standard_color_replace.tres" type="Material" id=5]
+[ext_resource path="res://scenes/tiles/danger_tilemap.tres" type="TileSet" id=6]
+[ext_resource path="res://sprites/background.png" type="Texture" id=7]
+[ext_resource path="res://scenes/levels/Level.gd" type="Script" id=8]
+[ext_resource path="res://scenes/tiles/SceneMap.tscn" type="PackedScene" id=9]
+[ext_resource path="res://scenes/ScreenShakeCamera.tscn" type="PackedScene" id=10]
+[ext_resource path="res://scenes/creatures/Bat.tscn" type="PackedScene" id=11]
+[ext_resource path="res://scenes/creatures/Statue.tscn" type="PackedScene" id=12]
+[ext_resource path="res://audio/switch_palette.wav" type="AudioStream" id=13]
+[ext_resource path="res://audio/key.wav" type="AudioStream" id=14]
+[ext_resource path="res://materials/Pixellari.ttf" type="DynamicFontData" id=17]
+
+[sub_resource type="DynamicFont" id=18]
+outline_color = Color( 0.266667, 0.266667, 0.266667, 1 )
+font_data = ExtResource( 17 )
+
+[sub_resource type="ShaderMaterial" id=5]
+
+[node name="Level" type="Node2D"]
+material = ExtResource( 5 )
+script = ExtResource( 8 )
+level_palettes = {
+0: NodePath("Slime"),
+1: NodePath("Bat"),
+2: NodePath("")
+}
+statue_path = NodePath("Statue")
+next_level_path = "res://scenes/levels/LevelStatue3.tscn"
+
+[node name="KeySFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 14 )
+bus = "Sound"
+
+[node name="PaletteSwitchSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 13 )
+bus = "Sound"
+
+[node name="ScreenShakeCamera" parent="." instance=ExtResource( 10 )]
+
+[node name="Background" type="Sprite" parent="."]
+use_parent_material = true
+position = Vector2( 128, 128 )
+texture = ExtResource( 7 )
+region_rect = Rect2( 0, 0, 256, 256 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
+
+[node name="UI" type="Control" parent="."]
+visible = false
+margin_right = 256.0
+margin_bottom = 256.0
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Message" type="Label" parent="UI"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -61.0
+margin_top = 35.0
+margin_right = 61.0
+margin_bottom = 108.0
+custom_colors/font_color = Color( 0.760784, 0.760784, 0.760784, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_as_outline = 1
+custom_fonts/font = SubResource( 18 )
+text = "Message"
+align = 1
+
+[node name="TileMap" type="TileMap" parent="."]
+use_parent_material = true
+tile_set = ExtResource( 1 )
+cell_size = Vector2( 16, 16 )
+format = 1
+tile_data = PoolIntArray( 0, 10, 0, 1, 0, 0, 2, 0, 0, 3, 0, 0, 4, 0, 0, 5, 0, 0, 6, 0, 0, 7, 0, 0, 8, 0, 0, 9, 0, 0, 10, 0, 0, 11, 0, 0, 12, 0, 0, 13, 0, 0, 14, 0, 0, 15, 9, 0, 65536, 4, 0, 65539, 13, 0, 65543, 13, 0, 65551, 3, 0, 131072, 4, 0, 131075, 13, 0, 131079, 13, 0, 131087, 3, 0, 196608, 4, 0, 196611, 13, 0, 196615, 13, 0, 196623, 3, 0, 262144, 4, 0, 262147, 13, 0, 262151, 13, 0, 262159, 3, 0, 327680, 4, 0, 327683, 13, 0, 327691, 8, 0, 327695, 3, 0, 393216, 4, 0, 393219, 13, 0, 393227, 8, 0, 393231, 3, 0, 458752, 4, 0, 458755, 13, 0, 458763, 8, 0, 458764, 8, 0, 458765, 8, 0, 458766, 8, 0, 458767, 8, 0, 524288, 4, 0, 524299, 8, 0, 524303, 3, 0, 589824, 4, 0, 589839, 3, 0, 655360, 4, 0, 655371, 8, 0, 655375, 3, 0, 720896, 11, 0, 720897, 5, 0, 720898, 5, 0, 720899, 5, 0, 720900, 5, 0, 720901, 5, 0, 720902, 5, 0, 720903, 5, 0, 720904, 5, 0, 720905, 5, 0, 720906, 5, 0, 720907, 8, 0, 720908, 5, 0, 720909, 5, 0, 720910, 5, 0, 720911, 12, 0, 786432, 8, 0, 786433, 8, 0, 786434, 8, 0, 786435, 8, 0, 786436, 8, 0, 786437, 8, 0, 786438, 8, 0, 786439, 8, 0, 786440, 8, 0, 786441, 8, 0, 786442, 8, 0, 786443, 8, 0, 786444, 8, 0, 786445, 8, 0, 786446, 8, 0, 786447, 8, 0, 851968, 8, 0, 851969, 8, 0, 851970, 8, 0, 851971, 8, 0, 851972, 8, 0, 851973, 8, 0, 851974, 8, 0, 851975, 8, 0, 851976, 8, 0, 851977, 8, 0, 851978, 8, 0, 851979, 8, 0, 851980, 8, 0, 851981, 8, 0, 851982, 8, 0, 851983, 8, 0, 917504, 8, 0, 917505, 8, 0, 917506, 8, 0, 917507, 8, 0, 917508, 8, 0, 917509, 8, 0, 917510, 8, 0, 917511, 8, 0, 917512, 8, 0, 917513, 8, 0, 917514, 8, 0, 917515, 8, 0, 917516, 8, 0, 917517, 8, 0, 917518, 8, 0, 917519, 8, 0, 983040, 8, 0, 983041, 8, 0, 983042, 8, 0, 983043, 8, 0, 983044, 8, 0, 983045, 8, 0, 983046, 8, 0, 983047, 8, 0, 983048, 8, 0, 983049, 8, 0, 983050, 8, 0, 983051, 8, 0, 983052, 8, 0, 983053, 8, 0, 983054, 8, 0, 983055, 8, 0 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="DangerMap" type="TileMap" parent="." groups=["danger"]]
+use_parent_material = true
+tile_set = ExtResource( 6 )
+cell_size = Vector2( 16, 16 )
+format = 1
+tile_data = PoolIntArray( 393228, 0, 0, 393229, 0, 0, 393230, 0, 0 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="SceneMap" parent="." instance=ExtResource( 9 )]
+tile_data = PoolIntArray( 327681, 0, 0, 327682, 0, 0, 327683, 0, 0, 327687, 1, 0, 524289, 0, 0, 524290, 0, 0, 524291, 0, 0 )
+
+[node name="Door" parent="." instance=ExtResource( 4 )]
+position = Vector2( 40, 168 )
+
+[node name="Key" parent="." instance=ExtResource( 3 )]
+position = Vector2( 217, 153 )
+
+[node name="Slime" parent="." instance=ExtResource( 2 )]
+material = SubResource( 5 )
+position = Vector2( 116, 167 )
+
+[node name="Bat" parent="." instance=ExtResource( 11 )]
+position = Vector2( 35, 25 )
+palette = 1
+
+[node name="Statue" parent="." instance=ExtResource( 12 )]
+position = Vector2( 184, 152 )
+
+[connection signal="creature_touched" from="Door" to="." method="_on_Door_creature_touched"]
+[connection signal="creature_touched" from="Key" to="." method="_on_Key_creature_touched"]

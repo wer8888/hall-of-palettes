@@ -1,0 +1,127 @@
+[gd_scene load_steps=17 format=2]
+
+[ext_resource path="res://scenes/tiles/tilemap.tres" type="TileSet" id=1]
+[ext_resource path="res://scenes/creatures/Slime.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/Key.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/Door.tscn" type="PackedScene" id=4]
+[ext_resource path="res://materials/standard_color_replace.tres" type="Material" id=5]
+[ext_resource path="res://scenes/tiles/danger_tilemap.tres" type="TileSet" id=6]
+[ext_resource path="res://scenes/tiles/Button.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scenes/levels/Level.gd" type="Script" id=8]
+[ext_resource path="res://scenes/tiles/SceneMap.tscn" type="PackedScene" id=9]
+[ext_resource path="res://scenes/tiles/ButtonDoor.tscn" type="PackedScene" id=10]
+[ext_resource path="res://sprites/background.png" type="Texture" id=11]
+[ext_resource path="res://audio/switch_palette.wav" type="AudioStream" id=12]
+[ext_resource path="res://audio/key.wav" type="AudioStream" id=13]
+[ext_resource path="res://materials/Pixellari.ttf" type="DynamicFontData" id=17]
+
+[sub_resource type="DynamicFont" id=18]
+outline_color = Color( 0.266667, 0.266667, 0.266667, 1 )
+font_data = ExtResource( 17 )
+
+[sub_resource type="ShaderMaterial" id=5]
+
+[node name="Level6" type="Node2D"]
+material = ExtResource( 5 )
+script = ExtResource( 8 )
+level_palettes = {
+0: NodePath("Slime"),
+1: NodePath("Slime2"),
+2: NodePath("Slime3")
+}
+next_level_path = "res://scenes/levels/Level7.tscn"
+
+[node name="KeySFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 13 )
+bus = "Sound"
+
+[node name="PaletteSwitchSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 12 )
+bus = "Sound"
+
+[node name="Background" type="Sprite" parent="."]
+use_parent_material = true
+position = Vector2( 128, 128 )
+texture = ExtResource( 11 )
+region_rect = Rect2( 0, 0, 256, 256 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="TileMap" type="TileMap" parent="."]
+use_parent_material = true
+tile_set = ExtResource( 1 )
+cell_size = Vector2( 16, 16 )
+format = 1
+tile_data = PoolIntArray( -1, 8, 0, -65536, 8, 0, -65535, 8, 0, -65534, 8, 0, -65533, 8, 0, -65532, 8, 0, -65531, 8, 0, -65530, 8, 0, -65529, 8, 0, -65528, 8, 0, -65527, 8, 0, -65526, 8, 0, -65525, 8, 0, -65524, 8, 0, -65523, 8, 0, -65522, 8, 0, -65521, 8, 0, -65520, 8, 0, 65535, 8, 0, 0, 10, 0, 1, 0, 0, 2, 0, 0, 3, 0, 0, 4, 0, 0, 5, 0, 0, 6, 0, 0, 7, 0, 0, 8, 0, 0, 9, 0, 0, 10, 0, 0, 11, 0, 0, 12, 8, 0, 13, 0, 0, 14, 0, 0, 15, 9, 0, 16, 8, 0, 131071, 8, 0, 65536, 4, 0, 65542, 13, 0, 65545, 13, 0, 65548, 8, 0, 65551, 3, 0, 65552, 8, 0, 196607, 8, 0, 131072, 4, 0, 131078, 13, 0, 131081, 13, 0, 131087, 3, 0, 131088, 8, 0, 262143, 8, 0, 196608, 4, 0, 196614, 13, 0, 196617, 13, 0, 196619, 6, 0, 196620, 5, 0, 196621, 5, 0, 196622, 5, 0, 196623, 12, 0, 196624, 8, 0, 327679, 8, 0, 262144, 4, 0, 262150, 13, 0, 262153, 13, 0, 262155, 1, 0, 262156, 0, 0, 262157, 0, 0, 262158, 0, 0, 262159, 9, 0, 262160, 8, 0, 393215, 8, 0, 327680, 4, 0, 327686, 13, 0, 327689, 13, 0, 327695, 3, 0, 327696, 8, 0, 458751, 8, 0, 393216, 11, 0, 393217, 5, 0, 393218, 5, 0, 393219, 5, 0, 393220, 7, 0, 393222, 13, 0, 393225, 13, 0, 393231, 3, 0, 393232, 8, 0, 524287, 8, 0, 458752, 10, 0, 458753, 0, 0, 458754, 0, 0, 458755, 0, 0, 458756, 2, 0, 458758, 13, 0, 458761, 13, 0, 458767, 3, 0, 458768, 8, 0, 589823, 8, 0, 524288, 4, 0, 524294, 13, 0, 524297, 13, 0, 524303, 3, 0, 524304, 8, 0, 655359, 8, 0, 589824, 4, 0, 589830, 13, 0, 589833, 13, 0, 589835, 6, 0, 589836, 5, 0, 589837, 5, 0, 589838, 5, 0, 589839, 12, 0, 589840, 8, 0, 720895, 8, 0, 655360, 4, 0, 655366, 13, 0, 655369, 13, 0, 655371, 1, 0, 655372, 0, 0, 655373, 0, 0, 655374, 0, 0, 655375, 9, 0, 655376, 8, 0, 786431, 8, 0, 720896, 4, 0, 720902, 13, 0, 720905, 13, 0, 720911, 3, 0, 720912, 8, 0, 851967, 8, 0, 786432, 4, 0, 786438, 13, 0, 786441, 13, 0, 786447, 3, 0, 786448, 8, 0, 917503, 8, 0, 851968, 11, 0, 851969, 5, 0, 851970, 5, 0, 851971, 7, 0, 851983, 3, 0, 851984, 8, 0, 983039, 8, 0, 917504, 8, 0, 917505, 8, 0, 917506, 8, 0, 917507, 4, 0, 917515, 6, 0, 917516, 5, 0, 917517, 5, 0, 917518, 5, 0, 917519, 12, 0, 917520, 8, 0, 1048575, 8, 0, 983040, 8, 0, 983041, 8, 0, 983042, 8, 0, 983043, 11, 0, 983044, 5, 0, 983045, 5, 0, 983046, 5, 0, 983047, 5, 0, 983048, 5, 0, 983049, 5, 0, 983050, 5, 0, 983051, 12, 0, 983052, 8, 0, 983053, 8, 0, 983054, 8, 0, 983055, 8, 0, 983056, 8, 0, 1114111, 8, 0, 1048592, 8, 0, 1179647, 8, 0, 1114112, 8, 0, 1114113, 8, 0, 1114114, 8, 0, 1114115, 8, 0, 1114116, 8, 0, 1114117, 8, 0, 1114118, 8, 0, 1114119, 8, 0, 1114120, 8, 0, 1114121, 8, 0, 1114122, 8, 0, 1114123, 8, 0, 1114124, 8, 0, 1114125, 8, 0, 1114126, 8, 0, 1114127, 8, 0, 1114128, 8, 0 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="UI" type="Control" parent="."]
+margin_right = 256.0
+margin_bottom = 256.0
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Message" type="Label" parent="UI"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -111.0
+margin_top = 18.0
+margin_right = 118.0
+margin_bottom = 91.0
+custom_colors/font_color = Color( 0.760784, 0.760784, 0.760784, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_as_outline = 1
+custom_fonts/font = SubResource( 18 )
+text = "Slimes can pass through 
+grates. Locks open 
+when their 
+buttons are pressed."
+
+[node name="DangerMap" type="TileMap" parent="." groups=["danger"]]
+use_parent_material = true
+tile_set = ExtResource( 6 )
+cell_size = Vector2( 16, 16 )
+format = 1
+tile_data = PoolIntArray( 917508, 0, 0, 917509, 0, 0, 917510, 0, 0, 917511, 0, 0, 917512, 0, 0, 917513, 0, 0, 917514, 0, 0, 1048576, 0, 0, 1048577, 0, 0, 1048578, 0, 0, 1048579, 0, 0, 1048580, 0, 0, 1048581, 0, 0, 1048582, 0, 0, 1048583, 0, 0, 1048584, 0, 0, 1048585, 0, 0, 1048586, 0, 0, 1048587, 0, 0, 1048588, 0, 0, 1048589, 0, 0, 1048590, 0, 0, 1048591, 0, 0 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="SceneMap" parent="." instance=ExtResource( 9 )]
+tile_data = PoolIntArray( 262150, 0, 0, 262151, 0, 0, 262152, 0, 0, 262153, 0, 0, 327691, 1, 0, 393227, 1, 0, 458758, 0, 0, 458759, 0, 0, 458760, 0, 0, 458761, 0, 0, 458763, 1, 0, 524299, 1, 0, 655366, 0, 0, 655367, 0, 0, 655368, 0, 0, 655369, 0, 0, 851974, 0, 0, 851975, 0, 0, 851976, 0, 0, 851977, 0, 0 )
+
+[node name="Door" parent="." instance=ExtResource( 4 )]
+position = Vector2( 224, 40 )
+
+[node name="Key" parent="." instance=ExtResource( 3 )]
+position = Vector2( -40, 154 )
+frame = 0
+
+[node name="Slime" parent="." instance=ExtResource( 2 )]
+material = SubResource( 5 )
+position = Vector2( 37, 198 )
+
+[node name="Slime2" parent="." instance=ExtResource( 2 )]
+material = SubResource( 5 )
+position = Vector2( 45, 86 )
+palette = 1
+has_key = true
+
+[node name="Slime3" parent="." instance=ExtResource( 2 )]
+material = SubResource( 5 )
+position = Vector2( 206, 214 )
+palette = 2
+
+[node name="Button" parent="." instance=ExtResource( 7 )]
+position = Vector2( 216, 136 )
+door = [ NodePath("../ButtonDoor") ]
+
+[node name="ButtonDoor" parent="." instance=ExtResource( 10 )]
+position = Vector2( 200, 40 )
+
+[connection signal="creature_touched" from="Door" to="." method="_on_Door_creature_touched"]
+[connection signal="creature_touched" from="Key" to="." method="_on_Key_creature_touched"]

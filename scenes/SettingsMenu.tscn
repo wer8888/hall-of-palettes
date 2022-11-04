@@ -1,0 +1,123 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://scenes/LevelSelect.tscn" type="PackedScene" id=1]
+[ext_resource path="res://sprites/settings_menu.png" type="Texture" id=2]
+[ext_resource path="res://scenes/SettingsMenu.gd" type="Script" id=3]
+[ext_resource path="res://materials/Pixellari.ttf" type="DynamicFontData" id=4]
+[ext_resource path="res://sprites/unchecked.png" type="Texture" id=5]
+[ext_resource path="res://sprites/checked.png" type="Texture" id=6]
+[ext_resource path="res://sprites/button.png" type="Texture" id=7]
+[ext_resource path="res://audio/land.wav" type="AudioStream" id=8]
+
+[sub_resource type="DynamicFontData" id=2]
+antialiased = false
+hinting = 0
+font_path = "res://materials/Pixellari.ttf"
+
+[sub_resource type="DynamicFont" id=1]
+extra_spacing_bottom = -3
+font_data = SubResource( 2 )
+
+[sub_resource type="DynamicFont" id=3]
+font_data = ExtResource( 4 )
+
+[node name="SettingsMenu" type="CanvasLayer"]
+pause_mode = 2
+script = ExtResource( 3 )
+
+[node name="Menu" type="Control" parent="."]
+pause_mode = 2
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="ColorRect" type="ColorRect" parent="Menu"]
+margin_right = 256.0
+margin_bottom = 256.0
+color = Color( 0, 0, 0, 0.501961 )
+
+[node name="Background" type="TextureRect" parent="Menu"]
+margin_left = 35.0
+margin_top = 33.0
+margin_right = 221.0
+margin_bottom = 223.0
+texture = ExtResource( 2 )
+expand = true
+
+[node name="LevelSelect" parent="Menu" instance=ExtResource( 1 )]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 46.0
+margin_top = 46.0
+margin_right = 210.0
+margin_bottom = 126.0
+
+[node name="Music" type="CheckBox" parent="Menu"]
+margin_left = 89.5
+margin_top = 130.0
+margin_right = 166.5
+margin_bottom = 154.0
+custom_colors/font_color_disabled = Color( 0.439216, 0.501961, 0.156863, 1 )
+custom_colors/font_color_focus = Color( 0.439216, 0.501961, 0.156863, 1 )
+custom_colors/font_color_hover_pressed = Color( 0.439216, 0.501961, 0.156863, 1 )
+custom_colors/font_color = Color( 0.439216, 0.501961, 0.156863, 1 )
+custom_colors/font_color_hover = Color( 0.439216, 0.501961, 0.156863, 1 )
+custom_colors/font_color_pressed = Color( 0.439216, 0.501961, 0.156863, 1 )
+custom_fonts/font = SubResource( 1 )
+custom_icons/checked = ExtResource( 6 )
+custom_icons/unchecked = ExtResource( 5 )
+pressed = true
+text = "MUSIC"
+
+[node name="Sound" type="CheckBox" parent="Menu"]
+margin_left = 87.0
+margin_top = 158.0
+margin_right = 169.0
+margin_bottom = 182.0
+custom_colors/font_color_disabled = Color( 0.439216, 0.501961, 0.156863, 1 )
+custom_colors/font_color_focus = Color( 0.439216, 0.501961, 0.156863, 1 )
+custom_colors/font_color_hover_pressed = Color( 0.439216, 0.501961, 0.156863, 1 )
+custom_colors/font_color = Color( 0.439216, 0.501961, 0.156863, 1 )
+custom_colors/font_color_hover = Color( 0.439216, 0.501961, 0.156863, 1 )
+custom_colors/font_color_pressed = Color( 0.439216, 0.501961, 0.156863, 1 )
+custom_fonts/font = SubResource( 1 )
+custom_icons/checked = ExtResource( 6 )
+custom_icons/unchecked = ExtResource( 5 )
+pressed = true
+text = "SOUND"
+
+[node name="MainMenu" type="TextureButton" parent="Menu"]
+margin_left = 76.0
+margin_top = 184.0
+margin_right = 180.0
+margin_bottom = 214.0
+texture_normal = ExtResource( 7 )
+expand = true
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Label" type="Label" parent="Menu/MainMenu"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -43.0
+margin_top = -7.0
+margin_right = 44.0
+margin_bottom = 9.0
+custom_colors/font_color = Color( 0.439216, 0.501961, 0.156863, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "MAIN MENU"
+
+[node name="Click" type="AudioStreamPlayer" parent="Menu"]
+stream = ExtResource( 8 )
+bus = "Sound"
+
+[connection signal="changed" from="Menu/LevelSelect" to="." method="_on_LevelSelect_changed"]
+[connection signal="exited" from="Menu/LevelSelect" to="." method="_on_LevelSelect_exited"]
+[connection signal="toggled" from="Menu/Music" to="." method="_on_Music_toggled"]
+[connection signal="toggled" from="Menu/Sound" to="." method="_on_Sound_toggled"]
+[connection signal="pressed" from="Menu/MainMenu" to="." method="_on_MainMenu_pressed"]

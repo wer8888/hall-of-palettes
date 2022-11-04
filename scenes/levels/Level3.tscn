@@ -1,0 +1,147 @@
+[gd_scene load_steps=18 format=2]
+
+[ext_resource path="res://scenes/tiles/tilemap.tres" type="TileSet" id=1]
+[ext_resource path="res://scenes/creatures/Slime.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/Key.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/Door.tscn" type="PackedScene" id=4]
+[ext_resource path="res://materials/standard_color_replace.tres" type="Material" id=5]
+[ext_resource path="res://audio/switch_palette.wav" type="AudioStream" id=6]
+[ext_resource path="res://audio/key.wav" type="AudioStream" id=7]
+[ext_resource path="res://scenes/levels/Level.gd" type="Script" id=8]
+[ext_resource path="res://scenes/tiles/SceneMap.tscn" type="PackedScene" id=9]
+[ext_resource path="res://sprites/tiles/spike_tile.png" type="Texture" id=15]
+[ext_resource path="res://materials/Pixellari.ttf" type="DynamicFontData" id=17]
+[ext_resource path="res://scenes/tiles/Platform.tscn" type="PackedScene" id=18]
+[ext_resource path="res://sprites/background.png" type="Texture" id=19]
+
+[sub_resource type="DynamicFont" id=18]
+outline_color = Color( 0.266667, 0.266667, 0.266667, 1 )
+font_data = ExtResource( 17 )
+
+[sub_resource type="ConvexPolygonShape2D" id=17]
+points = PoolVector2Array( 1.81279, 16, 7.9139, 3.95467, 14.2746, 16 )
+
+[sub_resource type="TileSet" id=7]
+0/name = "spike_tile.png 0"
+0/texture = ExtResource( 15 )
+0/tex_offset = Vector2( 0, 0 )
+0/modulate = Color( 1, 1, 1, 1 )
+0/region = Rect2( 0, 0, 16, 16 )
+0/tile_mode = 0
+0/occluder_offset = Vector2( 0, 0 )
+0/navigation_offset = Vector2( 0, 0 )
+0/shape_offset = Vector2( 0, 0 )
+0/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+0/shape = SubResource( 17 )
+0/shape_one_way = false
+0/shape_one_way_margin = 1.0
+0/shapes = [ {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 17 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
+0/z_index = 0
+
+[sub_resource type="ShaderMaterial" id=5]
+
+[node name="Level3" type="Node2D"]
+material = ExtResource( 5 )
+script = ExtResource( 8 )
+level_palettes = {
+0: NodePath("Slime"),
+1: NodePath("Slime2"),
+2: NodePath("")
+}
+next_level_path = "res://scenes/levels/Level4.tscn"
+
+[node name="KeySFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 7 )
+bus = "Sound"
+
+[node name="PaletteSwitchSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 6 )
+bus = "Sound"
+
+[node name="Background" type="Sprite" parent="."]
+use_parent_material = true
+position = Vector2( 128, 128 )
+texture = ExtResource( 19 )
+region_rect = Rect2( 0, 0, 256, 256 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="TileMap" type="TileMap" parent="."]
+use_parent_material = true
+tile_set = ExtResource( 1 )
+cell_size = Vector2( 16, 16 )
+format = 1
+tile_data = PoolIntArray( -1, 8, 0, -65536, 8, 0, -65535, 8, 0, -65534, 8, 0, -65533, 8, 0, -65532, 8, 0, -65531, 8, 0, -65530, 8, 0, -65529, 8, 0, -65528, 8, 0, -65527, 8, 0, -65526, 8, 0, -65525, 8, 0, -65524, 8, 0, -65523, 8, 0, -65522, 8, 0, -65521, 8, 0, -65520, 8, 0, 65535, 8, 0, 0, 10, 0, 1, 0, 0, 2, 0, 0, 3, 0, 0, 4, 0, 0, 5, 0, 0, 6, 0, 0, 7, 0, 0, 8, 0, 0, 9, 0, 0, 10, 0, 0, 11, 0, 0, 12, 0, 0, 13, 0, 0, 14, 0, 0, 15, 9, 0, 16, 8, 0, 131071, 8, 0, 65536, 4, 0, 65539, 13, 0, 65542, 13, 0, 65544, 13, 0, 65551, 3, 0, 65552, 8, 0, 196607, 8, 0, 131072, 4, 0, 131075, 13, 0, 131078, 13, 0, 131080, 13, 0, 131087, 3, 0, 131088, 8, 0, 262143, 8, 0, 196608, 4, 0, 196611, 13, 0, 196614, 13, 0, 196616, 13, 0, 196623, 3, 0, 196624, 8, 0, 327679, 8, 0, 262144, 4, 0, 262147, 13, 0, 262150, 13, 0, 262152, 13, 0, 262159, 3, 0, 262160, 8, 0, 393215, 8, 0, 327680, 4, 0, 327683, 13, 0, 327686, 13, 0, 327688, 13, 0, 327695, 3, 0, 327696, 8, 0, 458751, 8, 0, 393216, 4, 0, 393219, 13, 0, 393222, 13, 0, 393224, 13, 0, 393231, 3, 0, 393232, 8, 0, 524287, 8, 0, 458752, 4, 0, 458755, 13, 0, 458758, 13, 0, 458760, 13, 0, 458767, 3, 0, 458768, 8, 0, 589823, 8, 0, 524288, 4, 0, 524291, 13, 0, 524294, 13, 0, 524296, 13, 0, 524303, 3, 0, 524304, 8, 0, 655359, 8, 0, 589824, 4, 0, 589827, 13, 0, 589835, 6, 0, 589836, 5, 0, 589837, 5, 0, 589838, 5, 0, 589839, 12, 0, 589840, 8, 0, 720895, 8, 0, 655360, 4, 0, 655363, 13, 0, 655371, 3, 0, 655372, 8, 0, 655373, 8, 0, 655374, 8, 0, 655375, 8, 0, 655376, 8, 0, 786431, 8, 0, 720896, 4, 0, 720899, 13, 0, 720907, 1, 0, 720908, 0, 0, 720909, 0, 0, 720910, 0, 0, 720911, 9, 0, 720912, 8, 0, 851967, 8, 0, 786432, 4, 0, 786435, 13, 0, 786447, 3, 0, 786448, 8, 0, 917503, 8, 0, 851968, 4, 0, 851983, 3, 0, 851984, 8, 0, 983039, 8, 0, 917504, 4, 0, 917511, 6, 0, 917512, 7, 0, 917519, 3, 0, 917520, 8, 0, 1048575, 8, 0, 983040, 11, 0, 983041, 5, 0, 983042, 5, 0, 983043, 5, 0, 983044, 5, 0, 983045, 5, 0, 983046, 5, 0, 983047, 12, 0, 983048, 11, 0, 983049, 5, 0, 983050, 5, 0, 983051, 5, 0, 983052, 5, 0, 983053, 5, 0, 983054, 5, 0, 983055, 12, 0, 983056, 8, 0, 1114111, 8, 0, 1048592, 8, 0, 1179647, 8, 0, 1114112, 8, 0, 1114113, 8, 0, 1114114, 8, 0, 1114115, 8, 0, 1114116, 8, 0, 1114117, 8, 0, 1114118, 8, 0, 1114119, 8, 0, 1114120, 8, 0, 1114121, 8, 0, 1114122, 8, 0, 1114123, 8, 0, 1114124, 8, 0, 1114125, 8, 0, 1114126, 8, 0, 1114127, 8, 0, 1114128, 8, 0 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="UI" type="Control" parent="."]
+margin_right = 256.0
+margin_bottom = 256.0
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Message" type="Label" parent="UI"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -61.0
+margin_top = 24.0
+margin_right = 61.0
+margin_bottom = 116.0
+custom_colors/font_color = Color( 0.760784, 0.760784, 0.760784, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_as_outline = 1
+custom_fonts/font = SubResource( 18 )
+text = "The key is stuck
+within you.
+Press E to swap
+color palettes.
+Press R to reset,
+and P to pause."
+align = 1
+
+[node name="DangerMap" type="TileMap" parent="." groups=["danger"]]
+use_parent_material = true
+tile_set = SubResource( 7 )
+cell_size = Vector2( 16, 16 )
+format = 1
+tile_data = PoolIntArray( 1048576, 0, 0, 1048577, 0, 0, 1048578, 0, 0, 1048579, 0, 0, 1048580, 0, 0, 1048581, 0, 0, 1048582, 0, 0, 1048583, 0, 0, 1048584, 0, 0, 1048585, 0, 0, 1048586, 0, 0, 1048587, 0, 0, 1048588, 0, 0, 1048589, 0, 0, 1048590, 0, 0, 1048591, 0, 0 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="SceneMap" parent="." instance=ExtResource( 9 )]
+tile_data = PoolIntArray( 589825, 0, 0, 589826, 0, 0, 589827, 0, 0, 589830, 0, 0, 589831, 0, 0, 589832, 0, 0, 720897, 0, 0, 720898, 0, 0, 720899, 0, 0, 851969, 0, 0, 851970, 0, 0, 851971, 0, 0 )
+TILE_SCENES = {
+0: ExtResource( 18 )
+}
+
+[node name="Door" parent="." instance=ExtResource( 4 )]
+position = Vector2( 209, 136 )
+
+[node name="Key" parent="." instance=ExtResource( 3 )]
+position = Vector2( 312, 191 )
+frame = 5
+
+[node name="Slime" parent="." instance=ExtResource( 2 )]
+material = SubResource( 5 )
+position = Vector2( 59, 230 )
+has_key = true
+
+[node name="Slime2" parent="." instance=ExtResource( 2 )]
+modulate = Color( 0.427451, 0.462745, 1, 1 )
+material = SubResource( 5 )
+position = Vector2( 194, 231 )
+palette = 1
+
+[connection signal="creature_touched" from="Door" to="." method="_on_Door_creature_touched"]
+[connection signal="creature_touched" from="Key" to="." method="_on_Key_creature_touched"]

@@ -1,0 +1,93 @@
+[gd_scene load_steps=19 format=2]
+
+[ext_resource path="res://scenes/creatures/Slime.gd" type="Script" id=1]
+[ext_resource path="res://sprites/creatures/slime.png" type="Texture" id=2]
+[ext_resource path="res://sprites/creatures/slime_key_shadow.png" type="Texture" id=3]
+[ext_resource path="res://sprites/creatures/slime_jump7.png" type="Texture" id=4]
+[ext_resource path="res://sprites/creatures/slime_fall.png" type="Texture" id=5]
+[ext_resource path="res://sprites/creatures/slime_walk1.png" type="Texture" id=6]
+[ext_resource path="res://sprites/creatures/slime_walk5.png" type="Texture" id=7]
+[ext_resource path="res://sprites/creatures/slime_walk6.png" type="Texture" id=8]
+[ext_resource path="res://sprites/creatures/slime_walk4.png" type="Texture" id=9]
+[ext_resource path="res://sprites/creatures/slime_jump6.png" type="Texture" id=10]
+[ext_resource path="res://sprites/creatures/slime_walk3.png" type="Texture" id=11]
+[ext_resource path="res://sprites/creatures/slime_jump1.png" type="Texture" id=12]
+[ext_resource path="res://audio/death.wav" type="AudioStream" id=13]
+[ext_resource path="res://audio/jump.wav" type="AudioStream" id=14]
+[ext_resource path="res://audio/land.wav" type="AudioStream" id=15]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 7, 4 )
+
+[sub_resource type="SpriteFrames" id=3]
+animations = [ {
+"frames": [ ExtResource( 2 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 12 ), ExtResource( 10 ), ExtResource( 4 ) ],
+"loop": false,
+"name": "jump",
+"speed": 20.0
+}, {
+"frames": [ ExtResource( 5 ) ],
+"loop": true,
+"name": "fall",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 6 ), ExtResource( 11 ), ExtResource( 9 ), ExtResource( 7 ), ExtResource( 8 ) ],
+"loop": true,
+"name": "walk",
+"speed": 10.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 1.5, 1.5 )
+
+[node name="Slime" type="KinematicBody2D"]
+z_index = 1
+collision_layer = 2
+collision_mask = 3
+script = ExtResource( 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, 4 )
+shape = SubResource( 1 )
+
+[node name="Sprite" type="AnimatedSprite" parent="."]
+use_parent_material = true
+frames = SubResource( 3 )
+
+[node name="KeyShadow" type="Sprite" parent="."]
+visible = false
+use_parent_material = true
+scale = Vector2( 0.75, 1 )
+texture = ExtResource( 3 )
+
+[node name="LedgeDetectorRight" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LedgeDetectorRight"]
+position = Vector2( 8.5, 8.5 )
+shape = SubResource( 2 )
+
+[node name="LedgeDetectorLeft" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LedgeDetectorLeft"]
+position = Vector2( -8.5, 8.5 )
+shape = SubResource( 2 )
+
+[node name="Die" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 13 )
+bus = "Sound"
+
+[node name="Jump" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 14 )
+bus = "Sound"
+
+[node name="Land" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 15 )
+bus = "Sound"
+
+[connection signal="body_exited" from="LedgeDetectorRight" to="." method="_on_LedgeDetectorRight_body_exited"]
+[connection signal="body_exited" from="LedgeDetectorLeft" to="." method="_on_LedgeDetectorLeft_body_exited"]

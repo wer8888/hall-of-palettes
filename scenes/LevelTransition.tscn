@@ -1,0 +1,94 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://scenes/LevelTransition.gd" type="Script" id=2]
+[ext_resource path="res://audio/transition.wav" type="AudioStream" id=3]
+[ext_resource path="res://sprites/screen_wipe_triangle.png" type="Texture" id=4]
+
+[sub_resource type="Animation" id=1]
+resource_name = "RESET"
+length = 0.01
+tracks/0/type = "value"
+tracks/0/path = NodePath("ScreenWipe:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, -300 ) ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "cover"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath("ScreenWipe:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, -300 ), Vector2( 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "decover"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath("ScreenWipe:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 0, 300 ) ]
+}
+
+[node name="LevelTransition" type="CanvasLayer"]
+layer = 2
+script = ExtResource( 2 )
+
+[node name="ScreenWipe" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -300.0
+margin_bottom = -300.0
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="ColorRect" type="ColorRect" parent="ScreenWipe"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.25098, 0.313726, 0.0627451, 1 )
+
+[node name="Bottom" type="TextureRect" parent="ScreenWipe"]
+margin_top = 256.0
+margin_right = 256.0
+margin_bottom = 272.0
+texture = ExtResource( 4 )
+stretch_mode = 2
+flip_v = true
+
+[node name="Top" type="TextureRect" parent="ScreenWipe"]
+margin_top = -16.0
+margin_right = 256.0
+texture = ExtResource( 4 )
+stretch_mode = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/RESET = SubResource( 1 )
+anims/cover = SubResource( 2 )
+anims/decover = SubResource( 3 )
+
+[node name="TransitionSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
+bus = "Sound"
